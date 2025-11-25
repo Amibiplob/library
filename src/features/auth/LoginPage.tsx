@@ -1,0 +1,76 @@
+import { useState } from 'react';
+import { useAuthStore } from './auth.store';
+import { useNavigate } from 'react-router-dom';
+
+export const LoginPage = () => {
+    const [universityId, setUniversityId] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const login = useAuthStore((state) => state.login);
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:5000/api/v1/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ universityId, password }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Login failed');
+            }
+
+            login({
+                _id: data._id,
+                universityId: data.universityId,
+                role: data.role,
+                name: data.name
+            }, data.token);
+
+            navigate('/dashboard');
+        } catch (err) {
+            setError((err as Error).message);
+        }
+    };
+
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-slate-950">
+            <div className="bg-slate-900 p-8 rounded-lg shadow-xl w-96 border border-slate-800">
+                <h2 className="text-3xl font-bold text-white mb-6 text-center font-serif">Library Access</h2>
+                {error && <div className="bg-red-500/10 text-red-400 p-3 rounded mb-4 text-sm">{error}</div>}
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label className="block text-slate-400 mb-1 text-sm">University ID</label>
+                        <input
+                            type="text"
+                            value={universityId}
+                            onChange={(e) => setUniversityId(e.target.value)}
+                            className="w-full bg-slate-800 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-blue-500"
+                            placeholder="e.g. 2023-10-55"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-slate-400 mb-1 text-sm">Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full bg-slate-800 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-blue-500"
+                            placeholder="••••••••"
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
+                    >
+                        Sign In
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
+};
