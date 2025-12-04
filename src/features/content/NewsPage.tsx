@@ -24,7 +24,7 @@ export const NewsPage = () => {
 
     const fetchNews = async () => {
         try {
-            const res = await fetch(`${SERVER_API_URL}/api/v1/content/news`);
+            const res = await fetch(`https://libery-server-six.vercel.app//api/v1/content/news`);
             const data = await res.json();
             setNews(data.news || []);
         } catch (error) {

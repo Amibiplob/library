@@ -31,7 +31,7 @@ export const AdminDashboard = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await fetch(`${SERVER_API_URL}/api/v1/admin/users`);
+            const res = await fetch(`https://libery-server-six.vercel.app//api/v1/admin/users`);
             const data = await res.json();
             setUsers(data.users || []);
         } catch (error) {
@@ -44,7 +44,7 @@ export const AdminDashboard = () => {
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${SERVER_API_URL}/api/v1/admin/users`, {
+            const res = await fetch(`https://libery-server-six.vercel.app//api/v1/admin/users`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -68,7 +68,7 @@ export const AdminDashboard = () => {
         if (!confirm('Are you sure you want to delete this user?')) return;
 
         try {
-            const res = await fetch(`${SERVER_API_URL}/api/v1/admin/users/${id}`, {
+            const res = await fetch(`https://libery-server-six.vercel.app//api/v1/admin/users/${id}`, {
                 method: 'DELETE',
             });
 

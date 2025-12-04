@@ -15,7 +15,7 @@ export const RegisterPage = () => {
         setError('');
 
         try {
-            const response = await fetch(`${SERVER_API_URL}/api/v1/auth/register`, {
+            const response = await fetch(`https://libery-server-six.vercel.app//api/v1/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ universityId, name, password }),

@@ -24,8 +24,8 @@ export const CatalogPage = () => {
         setLoading(true);
         try {
             const url = query
-                ? `${SERVER_API_URL}/api/v1/books?search=${query}`
-                : `${SERVER_API_URL}/api/v1/books`;
+                ? `https://libery-server-six.vercel.app//api/v1/books?search=${query}`
+                : `https://libery-server-six.vercel.app//api/v1/books`;
 
             const res = await fetch(url);
             const data = await res.json();

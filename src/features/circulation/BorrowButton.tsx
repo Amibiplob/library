@@ -16,7 +16,7 @@ export const BorrowButton = ({ bookId, onSuccess }: BorrowButtonProps) => {
         setLoading(true);
 
         try {
-            const response = await fetch(`${SERVER_API_URL}/api/v1/circulation/borrow`, {
+            const response = await fetch(`https://libery-server-six.vercel.app//api/v1/circulation/borrow`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
