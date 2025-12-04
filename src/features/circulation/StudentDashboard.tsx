@@ -28,7 +28,7 @@ export const StudentDashboard = () => {
         if (!user) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/v1/circulation/my-loans?userId=${user._id}`);
+            const res = await fetch(`${SERVER_API_URL}/api/v1/circulation/my-loans?userId=${user._id}`);
             const data = await res.json();
             setLoans(data || []);
         } catch (error) {

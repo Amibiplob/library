@@ -24,8 +24,8 @@ export const CatalogPage = () => {
         setLoading(true);
         try {
             const url = query
-                ? `http://localhost:5000/api/v1/books?search=${query}`
-                : 'http://localhost:5000/api/v1/books';
+                ? `${SERVER_API_URL}/api/v1/books?search=${query}`
+                : `${SERVER_API_URL}/api/v1/books`;
 
             const res = await fetch(url);
             const data = await res.json();

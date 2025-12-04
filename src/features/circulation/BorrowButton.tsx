@@ -16,7 +16,7 @@ export const BorrowButton = ({ bookId, onSuccess }: BorrowButtonProps) => {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5000/api/v1/circulation/borrow', {
+            const response = await fetch(`${SERVER_API_URL}/api/v1/circulation/borrow`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

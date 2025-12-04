@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from './features/auth/LoginPage';
+import { RegisterPage } from './features/auth/RegisterPage'; // import register page
 import { CatalogPage } from './features/catalog/CatalogPage';
 import { StudentDashboard } from './features/circulation/StudentDashboard';
 import { AdminDashboard } from './features/admin/AdminDashboard';
@@ -14,7 +15,9 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/register" element={<RegisterPage />} />
+        {/* Optional: default redirect, e.g., to login or a landing page */}
+        <Route path="/" element={<Navigate to="/login" replace />} /> 
         <Route path="/dashboard" element={<StudentDashboard />} />
         <Route path="/catalog" element={<CatalogPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
@@ -26,4 +29,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

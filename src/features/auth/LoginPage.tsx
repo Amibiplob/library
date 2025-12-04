@@ -12,7 +12,7 @@ export const LoginPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/api/v1/auth/login', {
+            const response = await fetch(`${SERVER_API_URL}/api/v1/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ universityId, password }),
@@ -69,7 +69,11 @@ export const LoginPage = () => {
                     >
                         Sign In
                     </button>
+                    <p className="block text-slate-400 mb-1 text-sm">Don't have an account yet?
+				<a rel="noopener noreferrer" href="/register" className="hover:underline text-slate-400 ml-4">Sign up</a>.
+			</p>
                 </form>
+                
             </div>
         </div>
     );

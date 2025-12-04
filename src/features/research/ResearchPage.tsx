@@ -26,8 +26,8 @@ export const ResearchPage = () => {
     const fetchPapers = async () => {
         try {
             const url = selectedProgram === 'All'
-                ? 'http://localhost:5000/api/v1/research'
-                : `http://localhost:5000/api/v1/research?program=${selectedProgram}`;
+                ? `${SERVER_API_URL}/api/v1/research`
+                : `${SERVER_API_URL}/api/v1/research?program=${selectedProgram}`;
 
             const res = await fetch(url);
             const data = await res.json();
@@ -41,7 +41,7 @@ export const ResearchPage = () => {
 
     const generateCitation = async (paperId: string, format: string) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/v1/research/${paperId}/citation/${format}`);
+            const res = await fetch(`${SERVER_API_URL}/api/v1/research/${paperId}/citation/${format}`);
             const data = await res.json();
             setCitation(data.citation);
         } catch (error) {
