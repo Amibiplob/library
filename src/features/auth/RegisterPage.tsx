@@ -7,7 +7,7 @@ export const RegisterPage = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const register = useAuthStore((state) => state.register); // Optional if you auto-login
+    const login = useAuthStore((state) => state.login); // ✅ use login instead
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -15,7 +15,7 @@ export const RegisterPage = () => {
         setError('');
 
         try {
-            const response = await fetch(`https://libery-server-six.vercel.app//api/v1/auth/register`, {
+            const response = await fetch(`https://libery-server-six.vercel.app/api/v1/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ universityId, name, password }),
@@ -27,15 +27,15 @@ export const RegisterPage = () => {
                 throw new Error(data.message || 'Registration failed');
             }
 
-            // Optional: auto-login after registration
-            register?.({
+            // Auto-login after registration
+            login({
                 _id: data._id,
                 universityId: data.universityId,
                 role: data.role,
                 name: data.name
             }, data.token);
 
-            navigate('/dashboard'); // Redirect after successful registration
+            navigate('/dashboard'); // Redirect to dashboard
         } catch (err) {
             setError((err as Error).message);
         }
@@ -83,9 +83,10 @@ export const RegisterPage = () => {
                     >
                         Register
                     </button>
-                    <p className="block text-slate-400 mb-1 text-sm">Already have an account?
-				<a rel="noopener noreferrer" href="/login" className="hover:underline ml-4 text-slate-400">Sign In</a>.
-			</p>
+                    <p className="block text-slate-400 mb-1 text-sm">
+                        Already have an account?
+                        <a rel="noopener noreferrer" href="/login" className="hover:underline ml-4 text-slate-400">Sign In</a>.
+                    </p>
                 </form>
             </div>
         </div>
